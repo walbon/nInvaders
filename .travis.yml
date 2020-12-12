@@ -1,0 +1,14 @@
+language: shell
+
+arch:
+  - arm64
+os: linux
+services:
+    - docker
+
+script:
+  - docker login $REGISTRY -u $USER_REGISTRY -p $TOKEN
+  - docker build --no-cache -t $REGISTRY/$USER_REGISTRY/alpine:nInvaders -f nInvaders.dockerfile .
+
+after_script:
+  - docker push $REGISTRY/$USER_REGISTRY/alpine:nInvaders
